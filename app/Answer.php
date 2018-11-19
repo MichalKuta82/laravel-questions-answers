@@ -8,7 +8,7 @@ class Answer extends Model
 {
     //
     protected $fillable = [
-    	'content'
+    	'content', 'user_id', 'question_id'
     ];
 
     public function question()

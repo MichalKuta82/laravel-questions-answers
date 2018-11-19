@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Answer;
 use App\Question;
+use Illuminate\Support\Facades\Auth;
 
 class AnswersController extends Controller
 {
@@ -47,8 +48,15 @@ class AnswersController extends Controller
         ]);
 
         $question = Question::findOrFail($request->question_id);
+        $user = Auth::user();
 
-        if ($question->answers()->create($request->all())) {
+        $data = [
+            'user_id' => $user->id,
+            'question_id' => $request->question_id,
+            'content' => $request->content,
+        ];
+
+        if (Answer::create($data)) {
             return redirect()->route('questions.show', $question->id);
         }
     }

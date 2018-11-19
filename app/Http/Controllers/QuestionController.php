@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -46,7 +47,7 @@ class QuestionController extends Controller
             'description' => 'min:20',
         ]);
 
-        if($question = Question::create($request->all())){
+        if($question = Auth::user()->questions()->create($request->all())){
             return redirect()->route('questions.show', $question->id);
         }else{
             return redirect()->back();
@@ -75,7 +76,11 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = Question::findOrFail($id);
+        if ($question->user->id != Auth::id()) {
+            return abort(403);
+        }
+        return view('questions.edit');
     }
 
     /**
@@ -87,7 +92,11 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $question = Question::findOrFail($id);
+        if ($question->user->id != Auth::id()) {
+            return abort(403);
+        }
+        return view('questions.edit');
     }
 
     /**

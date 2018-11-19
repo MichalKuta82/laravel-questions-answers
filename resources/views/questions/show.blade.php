@@ -7,11 +7,13 @@
 		<h1>{{$question->title}}</h1>
 
 		<p class="lead">{{$question->description}}</p>
+		<p>Question  created by {{$question->user->name}}</p>
 
 		<hr>
 		@if(count($question->answers) > 0)
 			@foreach($question->answers as $answer)
 				<p>{{$answer->content}}</p>
+				<p>Answer created by {{$answer->user->name}}</p>
 			@endforeach
 		@else
 			<p>No Answers</p>

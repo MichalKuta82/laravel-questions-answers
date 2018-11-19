@@ -12,6 +12,7 @@
 		    <tr>
 		      <th scope="col">Id</th>
 		      <th scope="col">Title</th>
+		      <th scope="col">Owner</th>
 		      <th scope="col">Description</th>
 		      <th scope="col">Created At</th>
 		      <th scope="col">Updated At</th>
@@ -23,6 +24,7 @@
 				    <tr>
 				      <td>{{$question->id}}</td>
 				      <td>{{$question->title}}</td>
+				      <td>{{$question->user->name}}</td>
 				      <td>{{$question->description}}</td>
 				      <td>{{$question->created_at->toDayDateTimeString()}}</td>
 				      <td>{{$question->updated_at->toDayDateTimeString()}}</td>
