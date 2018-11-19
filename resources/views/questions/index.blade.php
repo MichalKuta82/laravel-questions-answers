@@ -5,6 +5,7 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">	
 		<h1>All Questions</h1>
+		<a href="{{route('questions.create')}}" class="btn btn-primary btn-sm">Ask A Question</a>
 
 		<table class="table">
 		  <thead class="thead-dark">

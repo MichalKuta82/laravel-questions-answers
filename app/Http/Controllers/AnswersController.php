@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Answer;
+use App\Question;
 
 class AnswersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +41,16 @@ class AnswersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'content' => 'required|min:15',
+            'question_id' => 'required|integer',
+        ]);
+
+        $question = Question::findOrFail($request->question_id);
+
+        if ($question->answers()->create($request->all())) {
+            return redirect()->route('questions.show', $question->id);
+        }
     }
 
     /**

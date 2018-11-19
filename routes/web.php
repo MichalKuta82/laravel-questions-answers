@@ -15,4 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('questions', 'QuestionController');
+Route::resource('/questions', 'QuestionController');
+
+Route::resource('/answers', 'AnswersController', ['except' => ['index', 'create', 'show']]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
