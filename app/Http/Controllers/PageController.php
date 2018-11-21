@@ -12,4 +12,14 @@ class PageController extends Controller
     	$user = User::with(['questions', 'answers', 'answers.question'])->find($id);
     	return view('profile')->with('user', $user);
     }
+
+    public function contact()
+    {
+    	return view('contact');
+    }
+
+    public function sendContact(Request $request)
+    {
+    	
+    }
 }
