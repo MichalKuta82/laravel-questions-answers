@@ -47,7 +47,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Admin</a></li>
+                    <li><a href="contact">Contact</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

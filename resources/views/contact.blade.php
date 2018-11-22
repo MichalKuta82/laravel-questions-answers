@@ -47,6 +47,5 @@
           <!--<button type="submit" name="submit" class="btn btn-primary">Create</button>-->
         {!! Form::close() !!}
     </div>
-
 </div>
 @endsection
