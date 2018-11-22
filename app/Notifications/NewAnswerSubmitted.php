@@ -11,14 +11,19 @@ class NewAnswerSubmitted extends Notification
 {
     use Queueable;
 
+    public $question;
+    public $answer;
+    public $name;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($question, $answer, $name)
     {
-        //
+        $this->question = $question;
+        $this->answer = $answer;
+        $this->name = $name;
     }
 
     /**
@@ -41,8 +46,9 @@ class NewAnswerSubmitted extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('A new answer was submitted to your question!')
+                    ->line($this->name . ' just suggested: ' . $this->answer->content)
+                    ->action('View all answers', route('questions.show', $this->question->id))
                     ->line('Thank you for using our application!');
     }
 
