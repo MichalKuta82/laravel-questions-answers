@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\NexmoMessage;
 
 class NewAnswerSubmitted extends Notification
 {
@@ -34,7 +35,7 @@ class NewAnswerSubmitted extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'nexmo'];
     }
 
     /**
@@ -52,6 +53,11 @@ class NewAnswerSubmitted extends Notification
                     ->line('Thank you for using our application!');
     }
 
+    public function toNexmo($notifiable)
+    {
+        return (new NexmoMessage)
+                ->content($this->name . ' just submitted an answer to your question! Check it now at Laravel Answers');
+    }
     /**
      * Get the array representation of the notification.
      *
