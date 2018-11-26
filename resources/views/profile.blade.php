@@ -3,11 +3,18 @@
 @section('content')
 
 <div class="container">
-	<h1>{{$user->name}}'s Profile</h1>
-	<p>
-		See what {{$user->name}} has been up to on Laravel Answers.
-	</p>
-	<hr>
+	<div class="row">
+		<div class="col-md-6">
+			<h1>{{$user->name}}'s Profile</h1>
+			<p>
+				See what {{$user->name}} has been up to on Laravel Answers.
+			</p>
+		</div>
+		<div class="col-md-6">
+			<h1>{{$user->name}}'s Image</h1>
+		</div>
+	</div>
+			<hr>
 
 	<div class="row">
 		<div class="col-md-6">
