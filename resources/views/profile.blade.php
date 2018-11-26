@@ -12,6 +12,7 @@
 		</div>
 		<div class="col-md-6">
 			<h1>{{$user->name}}'s Image</h1>
+			<img src="{{ asset('storage/' . $user->profile_pic) }}" class="img-thumbnail">
 		</div>
 	</div>
 			<hr>
