@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\NexmoMessage;
+use Illuminate\Notifications\Messages\SlackMessage;
 
 class NewAnswerSubmitted extends Notification
 {
@@ -35,7 +36,7 @@ class NewAnswerSubmitted extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'nexmo'];
+        return ['mail', 'nexmo', 'slack'];
     }
 
     /**
@@ -53,9 +54,15 @@ class NewAnswerSubmitted extends Notification
                     ->line('Thank you for using our application!');
     }
 
-    public function toNexmo($notifiable)
+    // public function toNexmo($notifiable)
+    // {
+    //     return (new NexmoMessage)
+    //             ->content($this->name . ' just submitted an answer to your question! Check it now at Laravel Answers');
+    // }
+
+    public function toSlack($notifiable)
     {
-        return (new NexmoMessage)
+        return (new SlackMessage)
                 ->content($this->name . ' just submitted an answer to your question! Check it now at Laravel Answers');
     }
     /**

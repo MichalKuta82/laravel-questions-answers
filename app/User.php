@@ -37,8 +37,13 @@ class User extends Authenticatable
         return $this->hasMany('App\Answer');
     }
 
-    public function routeNotificationsForNexmo()
+    // public function routeNotificationForNexmo()
+    // {
+    //     return $this->phone;
+    // }
+
+    public function routeNotificationForSlack()
     {
-        return $this->phone;
+        return env('SLACK_WEBHOOK');
     }
 }
