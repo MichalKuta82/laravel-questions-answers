@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use Storage;
 use File;
 use Auth;
-use Intervention\Image\Facades\Image;
+use Image;
 
 class UploadController extends Controller
 {
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
 	public function getUpload()
 	{
 		return view('upload');	
@@ -28,8 +32,11 @@ class UploadController extends Controller
 
 		//create the thumbnail and save it
 		$thumb = Image::make($file);
-		$thumb->fit(200, 300);
-		$png = (string) $thumb->encode('png');
+		$thumb->fit(100, 150);
+		$jpg = (string) $thumb->encode('jpg');
+
+		$thumbName = pathinfo($filename, PATHINFO_FILENAME) . '-thumb.jpg';
+		Storage::disk('public')->put($thumbName, $jpg);
 
 		return redirect('upload')->with('filename', $filename);
 	}

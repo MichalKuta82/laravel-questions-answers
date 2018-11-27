@@ -18,6 +18,10 @@ class User extends Authenticatable
         'name', 'email', 'password', 'phone'
     ];
 
+    protected $appends = [
+        'thumbnail'
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -45,5 +49,11 @@ class User extends Authenticatable
     public function routeNotificationForSlack()
     {
         return env('SLACK_WEBHOOK');
+    }
+
+    public function getThumbnailAttribute()
+    {
+        $path = pathinfo($this->profile_pic);
+        return $path['dirname'] . '/' . $path['filename'] . "-thumb.jpg";
     }
 }
