@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    //
+    public function github()
+    {
+    	# code...
+    }
 }
