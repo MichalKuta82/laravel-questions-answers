@@ -29,3 +29,5 @@ Route::post('/contact', 'PageController@sendContact');
 
 Route::get('/upload', 'UploadController@getUpload')->name('upload');
 Route::post('/upload', 'UploadController@postUpload');
+
+Route::get('/github/{username}', 'ApiController@github')->name('github');
