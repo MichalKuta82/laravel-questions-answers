@@ -18,4 +18,32 @@ class ApiController extends Controller
     	print "Location: $body->location <br>";
     	print "Bio: $body->bio <br>";
     }
+
+    public function getWeather()
+    {
+    	return view('weather');
+    }
+
+    public function postWeather(Request $request)
+    {
+    	$this->validate($request, [
+    		'location' => 'required|min:5',
+    	]);
+
+    	//google api to get cords
+    	$googleClient = new GuzzleClient(); 
+    	$response = $googleClient->get('https://maps.googleapis.com/maps/api/geocode/json', [
+    		'query' => [
+    			'address' => $request->location,
+    			'api_key' => env('GOOGLE_API'),
+    		]
+    	]);
+    	$googleBody = json_decode($response->getBody());
+    	$coords = $googleBody->results->geometry->location;
+
+    	print "Lat: $coords->lat <br>";
+    	print "Lng: $coords->lng <br>";
+
+    	// use the cords to get weather from darksky
+    }
 }
