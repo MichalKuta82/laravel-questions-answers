@@ -23,4 +23,19 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Address</h1>
+
+            <hr>
+            <p>{{$weather->hourly->summary}}</p>
+            <ul>
+                <li>Current Temp: {{$weather->currently->temperature}}</li>
+                <li>Feels Like: {{$weather->currently->apparentTemperature}}</li>
+                <li>Wind Speed: {{$weather->currently->windSpeed}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
 @endsection

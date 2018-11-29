@@ -39,11 +39,17 @@ class ApiController extends Controller
     		]
     	]);
     	$googleBody = json_decode($response->getBody());
-    	$coords = $googleBody->results->geometry->location;
+    	$coords = $googleBody->results[0]->geometry->location;
 
-    	print "Lat: $coords->lat <br>";
-    	print "Lng: $coords->lng <br>";
+    	// print "Lat: $coords->lat <br>";
+    	// print "Lng: $coords->lng <br>";
 
     	// use the cords to get weather from darksky
+    	$dsClient = new GuzzleClient();
+    	$dsUrl = 'https://api.darksky.net/forecast/' . env('DARKSKY_API') . '/37.8267,-122.4233';
+    	$dsResponse = $dsClient->get($dsUrl);
+    	$weatherBody = json_decode($dsResponse->getBody());
+
+    	return view('weather')->with('weather', $weatherBody)->with('address', $googleBody->results[0]);
     }
 }
