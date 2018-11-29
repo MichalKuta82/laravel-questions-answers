@@ -24,6 +24,11 @@ class ApiController extends Controller
     	return view('weather');
     }
 
+    public function getWeatherJs()
+    {
+    	return view('weather-js');
+    }
+
     public function postWeather(Request $request)
     {
     	$this->validate($request, [
