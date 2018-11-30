@@ -20,11 +20,11 @@
               <li>Lat: @{{ googleAddress.lat }}</li>
               <li>Lng: @{{ googleAddress.lng }}</li>
             </ul>
-            <p>Weather Summary</p>
+            <p>@{{ darksky.summary }}</p>
             <ul>
-                <li>Current Temp: Temp</li>
-                <li>Feels Like: Temp</li>
-                <li>Wind Speed: Speed</li>
+                <li>Current Temp: @{{ darksky.temp }}</li>
+                <li>Feels Like: @{{ darksky.feelsLikeTemp }}</li>
+                <li>Wind Speed: @{{ darksky.windSpeed }}</li>
             </ul>
         </div>
     </div>
@@ -45,6 +45,12 @@
         lng: ''
       }
     },
+    darksky: {
+      summary: '',
+      temp: '',
+      feelsLikeTemp: '',
+      windSpeed: ''
+    }
     methods: {
       getWeather: function() {
         this.step = 2;
@@ -58,6 +64,17 @@
           vm.googleAddress.formatted = vm.res.formatted_address;
           vm.googleAddress.lat = res.geometry.location.lat;
           vm.googleAddress.lng = res.geometry.location.lng;
+
+          const darkskyApi = '{{ env('DARKSKY_API') }}';
+          const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
+          const url = `${corsAnywhere}https://api.darksky.net/forecast/${darkskyApi}/${res.geometry.location.lat},${res.geometry.location.lng}`
+          return axios.get(url);
+        }).then(function (response){
+          let res2 = response.data;
+          vm.darksky.summary = res2.currently.summary;
+          vm.darksky.temp = res2.currently.temp;
+          vm.darksky.feelsLikeTemp = res2.currently.feelsLikeTemp;
+          vm.darksky.windSpeed = res2.currently.windSpeed;
         })
       }
     }
